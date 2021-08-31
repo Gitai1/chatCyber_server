@@ -2,14 +2,14 @@ import socket
 import threading
 import protocol
 
-PORT = 8888
+PORT = 8000
 clients = {}
 
 
 class Server:
     def __init__(self, port):
         self._server_socket = socket.socket()
-        self._server_socket.bind(('', port))
+        self._server_socket.bind(('0.0.0.0', port))
         self._server_socket.listen()
 
     def _connect_to_client(self):
@@ -44,9 +44,9 @@ class Server:
 
     @staticmethod
     def send_msg(msg):
+        print(msg)
         for client in clients.values():
             try:
-                print(msg)
                 client.send(msg.encode())
             except:
                 print('looks like I can\'t send this msg to this client')
